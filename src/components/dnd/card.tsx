@@ -49,7 +49,7 @@ export function Card({
       </div>
       <div className="flex items-center justify-start w-full gap-2">
         {responsibles.map((responsible) => (
-          <div className="bg-[#1E90FF] w-fit p-2 flex items-center justify-center text-white font-normal text-[10px] rounded-lg h-[26px] ">
+          <div className="bg-[#1E90FF] w-fit p-2 flex items-center justify-center text-white font-normal text-[10px] rounded-lg h-fit">
             {responsible.label}
           </div>
         ))}
