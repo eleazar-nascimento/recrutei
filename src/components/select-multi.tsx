@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Select, { ActionMeta, MultiValue } from "react-select";
 import makeAnimated from "react-select/animated";
 

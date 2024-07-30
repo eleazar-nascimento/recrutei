@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { ColumnType } from "@/drag-container/Column";
-import { columnData } from "@/mocks/columnData";
-import { CardType } from "@/drag-container/Card";
+import { CardType } from "@/components/dnd/card";
+import { ColumnType } from "@/components/dnd/column";
+import { columnData } from "@/mocks/column-data";
 
 interface StoreTasksProps {
   columns: ColumnType[];

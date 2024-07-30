@@ -1,6 +1,7 @@
-import { Button } from "react-day-picker";
 import { CreateTask } from "./components/create-task";
+import { DndComponent } from "./components/dnd/dnd-component";
 import { NavBar } from "./components/navbar";
+import { Button } from "./components/ui/button";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Button className="rounded-full">Adicionar tarefa</Button>
         </CreateTask>
       </div>
+      <DndComponent />
     </main>
   );
 }
