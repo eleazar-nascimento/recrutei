@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
@@ -18,31 +19,20 @@ import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 
 import { MultiSelect } from "./select-multi";
-
-const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "O Título deve ter pelo menos 2 caracteres.",
-  }),
-  description: z.string().min(2, {
-    message: "O Título deve ter pelo menos 2 caracteres.",
-  }),
-  responsibles: z
-    .array(
-      z.object({
-        value: z.string(),
-        label: z.string(),
-      })
-    )
-    .nonempty("Pelo menos uma opção deve ser selecionada"),
-});
+import { useStoreTasks } from "@/store/task";
+import { createTaskFormSchema } from "@/validations/create-task";
 
 interface CreateTaskProps {
   children: ReactNode;
 }
 
 export function CreateTask({ children }: CreateTaskProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const [open, setOpen] = useState<boolean>(false);
+
+  const addTask = useStoreTasks((state) => state.addTask);
+
+  const form = useForm<z.infer<typeof createTaskFormSchema>>({
+    resolver: zodResolver(createTaskFormSchema),
     defaultValues: {
       title: "",
       description: "",
@@ -50,12 +40,15 @@ export function CreateTask({ children }: CreateTaskProps) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  function onSubmit(data: z.infer<typeof createTaskFormSchema>) {
+    addTask({ ...data, id: uuidv4() });
+
+    setOpen(false);
+    form.reset();
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="bg-card">
         <div className="flex flex-col gap-1">
@@ -124,9 +117,9 @@ export function CreateTask({ children }: CreateTaskProps) {
                       onChange={field.onChange}
                       defaultValue={field.value}
                       options={[
-                        { value: "option1", label: "Opção 1" },
-                        { value: "option2", label: "Opção 2" },
-                        { value: "option3", label: "Opção 3" },
+                        { value: "1", label: "Matheus Gomes" },
+                        { value: "2", label: "Pedro Paulo" },
+                        { value: "3", label: "Eleazar Nascimento" },
                       ]}
                     />
                   </FormControl>
