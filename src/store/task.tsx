@@ -21,6 +21,6 @@ export const useStoreTasks = create<StoreTasksProps>((set, get) => ({
     set({ loading: false });
   },
 
-  loading: true,
+  loading: false,
   updateLoading: (loading: boolean) => set(() => ({ loading })),
 }));
