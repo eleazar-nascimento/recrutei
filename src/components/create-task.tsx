@@ -30,21 +30,29 @@ export function CreateTask({ children }: CreateTaskProps) {
   const [open, setOpen] = useState<boolean>(false);
 
   const addTask = useStoreTasks((state) => state.addTask);
+  const updateLoading = useStoreTasks((action) => action.updateLoading);
 
   const form = useForm<z.infer<typeof createTaskFormSchema>>({
     resolver: zodResolver(createTaskFormSchema),
     defaultValues: {
       title: "",
       description: "",
+      deadline: "",
       responsibles: [],
     },
   });
 
-  function onSubmit(data: z.infer<typeof createTaskFormSchema>) {
-    addTask({ ...data, id: uuidv4() });
-
-    setOpen(false);
-    form.reset();
+  async function onSubmit(data: z.infer<typeof createTaskFormSchema>) {
+    try {
+      updateLoading(true);
+      await addTask({ ...data, id: uuidv4() });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setOpen(false);
+      form.reset();
+      updateLoading(false);
+    }
   }
 
   return (
@@ -127,6 +135,29 @@ export function CreateTask({ children }: CreateTaskProps) {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="deadline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-zinc-800 opacity-70">
+                    Data limite
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="date"
+                      className="rounded-full border-2 border-slate-300"
+                      placeholder="Informe a data limite"
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button className="w-full rounded-full" type="submit">
               Adicionar tarefa
             </Button>

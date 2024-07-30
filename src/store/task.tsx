@@ -5,7 +5,7 @@ import { columnData } from "@/mocks/column-data";
 
 interface StoreTasksProps {
   columns: ColumnType[];
-  addTask: (newCard: CardType) => void;
+  addTask: (newCard: CardType) => Promise<void>;
 
   loading: boolean;
   updateLoading: (loading: boolean) => void;
@@ -13,12 +13,18 @@ interface StoreTasksProps {
 
 export const useStoreTasks = create<StoreTasksProps>((set, get) => ({
   columns: columnData,
-  addTask: (newCard) => {
-    set({ loading: true });
-    const columns = get().columns;
+  addTask: async (newCard) => {
+    const returnPromise = () => {
+      const columns = get().columns;
 
-    columns[0].cards.push(newCard);
-    set({ loading: false });
+      columns[0].cards.push(newCard);
+    };
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(returnPromise());
+      }, 2000);
+    });
   },
 
   loading: false,
