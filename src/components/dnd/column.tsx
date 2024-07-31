@@ -40,7 +40,7 @@ export function Column({ id, title, cards }: ColumnType) {
                 title={card?.title}
                 responsibles={card?.responsibles}
                 deadline={card?.deadline}
-                status={card.status}
+                status={card?.status}
               />
             ))
           : returnSkeleton()}

@@ -12,17 +12,36 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Column, ColumnType } from "./column";
 import { useCallback, useEffect, useState } from "react";
 import { useStoreTasks } from "@/store/task";
-import { getTasks } from "@/services/tasks";
 
 export function DndComponent() {
   const tasks = useStoreTasks((state) => state.columns);
+  const newTask = useStoreTasks((state) => state.newTask);
+  const getColumns = useStoreTasks((state) => state.getColumns);
+
   const [columns, setColumns] = useState<ColumnType[]>(tasks);
 
   const changeTasks = useCallback(async () => {
-    const apiColumns = await getTasks();
+    try {
+      if (newTask) {
+        setColumns((prevColumns) => {
+          const updatedColumns = [...prevColumns];
 
-    setColumns(apiColumns);
-  }, []);
+          updatedColumns[0] = {
+            ...updatedColumns[0],
+            cards: [newTask, ...updatedColumns[0].cards],
+          };
+
+          return updatedColumns;
+        });
+      } else {
+        const dataColumns = await getColumns();
+
+        setColumns(dataColumns);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [getColumns, newTask]);
 
   useEffect(() => {
     changeTasks();

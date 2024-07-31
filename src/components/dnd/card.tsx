@@ -78,9 +78,12 @@ export function Card({
         {checkDateStatus(deadline, columnId)}
       </div>
       <div className="flex items-center justify-start w-full gap-2">
-        {responsibles.map((responsible) => (
-          <div className="bg-[#1E90FF] w-fit p-2 flex items-center justify-center text-white font-normal text-[10px] rounded-lg h-fit">
-            {responsible.label}
+        {responsibles?.map((responsible) => (
+          <div
+            key={responsible?.value}
+            className="bg-[#1E90FF] w-fit p-2 flex items-center justify-center text-white font-normal text-[10px] rounded-lg h-fit"
+          >
+            {responsible?.label}
           </div>
         ))}
       </div>

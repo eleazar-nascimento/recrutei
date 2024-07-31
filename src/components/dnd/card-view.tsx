@@ -43,9 +43,12 @@ export function CardView({
 
         <div className="flex items-center justify-start font-normal gap-1 text-[10px] text-[#747F93]">
           <p>Responsáveis: </p>
-          {responsibles.map((responsible) => (
-            <div className="w-fit flex items-center justify-center">
-              {responsible.label}.{" "}
+          {responsibles?.map((responsible) => (
+            <div
+              key={responsible.value}
+              className="w-fit flex items-center justify-center"
+            >
+              {responsible?.label}.{" "}
             </div>
           ))}
         </div>

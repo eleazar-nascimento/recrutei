@@ -15,5 +15,7 @@ export const createTaskFormSchema = z.object({
       })
     )
     .nonempty("Pelo menos uma opção deve ser selecionada"),
-  deadline: z.string(),
+  deadline: z.string().min(1, {
+    message: "A data é obrigatória",
+  }),
 });
