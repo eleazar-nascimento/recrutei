@@ -30,6 +30,12 @@ export function checkDateStatus(
           Fora do Prazo
         </span>
       );
+    } else {
+      return (
+        <span className="font-semibold text-[10px] text-[#63B150]">
+          Dentro do Prazo
+        </span>
+      );
     }
   }
   if (differenceInDays > 0) {
