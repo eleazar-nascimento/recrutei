@@ -6,6 +6,7 @@ import { EyeIcon } from "lucide-react";
 import { CardView } from "./card-view";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { TooltipCustom } from "../tooltip-custom";
 
 export type CardType = {
   id: string;
@@ -60,12 +61,14 @@ export function Card({
           description={description}
           responsibles={responsibles}
         >
-          <Button variant="ghost" onClick={() => setOpen(true)}>
-            <EyeIcon
-              className="text-orange-500 opacity-10 hover:opacity-100"
-              size={30}
-            />
-          </Button>
+          <TooltipCustom>
+            <Button variant="ghost" onClick={() => setOpen(true)}>
+              <EyeIcon
+                className="text-orange-500 opacity-10 hover:opacity-100"
+                size={30}
+              />
+            </Button>
+          </TooltipCustom>
         </CardView>
       </div>
       <span className="leading-none font-normal text-[10px] w-fit text-[#747F93]">
