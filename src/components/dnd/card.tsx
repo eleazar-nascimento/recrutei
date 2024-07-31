@@ -2,6 +2,10 @@ import { formatDate } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { checkDateStatus } from "@/lib/utils-for-components";
 import { CheckIcon } from "@/assets/check";
+import { EyeIcon } from "lucide-react";
+import { CardView } from "./card-view";
+import { Button } from "../ui/button";
+import { useState } from "react";
 
 export type CardType = {
   id: string;
@@ -20,6 +24,8 @@ export function Card({
   columnId,
   deadline,
 }: CardType) {
+  const [open, setOpen] = useState<boolean>(false);
+
   const { attributes, listeners, setNodeRef, transform } = useSortable({
     id: id,
   });
@@ -41,7 +47,26 @@ export function Card({
       }`}
     >
       {columnId === "4" && <CheckIcon />}
-      <h4 className="text-sm font-semibold">{title}</h4>
+      <div className="flex items-center justify-between">
+        <h4 className="text-sm font-semibold">{title}</h4>
+        <CardView
+          id={id}
+          open={open}
+          title={title}
+          setOpen={setOpen}
+          columnId={columnId}
+          deadline={deadline}
+          description={description}
+          responsibles={responsibles}
+        >
+          <Button variant="ghost" onClick={() => setOpen(true)}>
+            <EyeIcon
+              className="text-orange-500 opacity-10 hover:opacity-100"
+              size={30}
+            />
+          </Button>
+        </CardView>
+      </div>
       <span className="leading-none font-normal text-[10px] w-fit text-[#747F93]">
         {description}
       </span>
