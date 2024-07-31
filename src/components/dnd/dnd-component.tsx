@@ -8,7 +8,7 @@ import {
   DragEndEvent,
   DragOverEvent,
 } from "@dnd-kit/core";
-import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Column, ColumnType } from "./column";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useStoreTasks } from "@/store/task";
@@ -40,28 +40,7 @@ export function DndComponent() {
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    const activeId = String(active.id);
-    const overId = over ? String(over.id) : null;
-    const activeColumn = findColumn(activeId);
-    const overColumn = findColumn(overId);
-    if (!activeColumn || !overColumn || activeColumn !== overColumn) {
-      return null;
-    }
-    const activeIndex = activeColumn.cards.findIndex((i) => i?.id === activeId);
-    const overIndex = overColumn.cards.findIndex((i) => i?.id === overId);
-    if (activeIndex !== overIndex) {
-      setColumns((prevState) => {
-        return prevState.map((column) => {
-          if (column.id === activeColumn.id) {
-            column.cards = arrayMove(overColumn.cards, activeIndex, overIndex);
-            return column;
-          } else {
-            return column;
-          }
-        });
-      });
-    }
+    return dragAndDrop.handleDragEnd(findColumn, event, { setColumns });
   };
 
   const sensors = useSensors(
