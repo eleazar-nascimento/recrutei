@@ -1,5 +1,16 @@
+import { CardType } from "@/components/dnd/card";
 import { columnData } from "@/mocks/column-data";
 import axios from "axios";
+
+interface GetTasksProps {
+  id: string,
+  date: string,
+  title: string,
+  description: string,
+  status: string,
+  responsible: Array<string>,
+}
+
 
 export async function getTasks() {
   const { data } = await axios.get(
@@ -7,12 +18,12 @@ export async function getTasks() {
   );
 
   const updatedColumns = columnData.map((column) => {
-    const cardsForColumn = data.filter((card) => {
+    const cardsForColumn = data.filter((card: CardType) => {
       const cardStatus = card.status === "doing" ? "development" : card.status;
       return cardStatus === column.status;
     });
 
-    const formattedCards = cardsForColumn.map((card) => {
+    const formattedCards = cardsForColumn.map((card: GetTasksProps) => {
       if (card.status === "done") {
         return {
           id: card.id,
