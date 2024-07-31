@@ -128,6 +128,7 @@ export function CreateTask({ children }: CreateTaskProps) {
                         { value: "1", label: "Matheus Gomes" },
                         { value: "2", label: "Pedro Paulo" },
                         { value: "3", label: "Eleazar Nascimento" },
+                        { value: "4", label: "John Doe" },
                       ]}
                     />
                   </FormControl>

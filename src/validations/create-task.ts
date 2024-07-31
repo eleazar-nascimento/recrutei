@@ -15,4 +15,5 @@ export const createTaskFormSchema = z.object({
       })
     )
     .nonempty("Pelo menos uma opção deve ser selecionada"),
+  deadline: z.string(),
 });

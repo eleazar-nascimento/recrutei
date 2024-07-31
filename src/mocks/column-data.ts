@@ -7,7 +7,7 @@ export const columnData: ColumnType[] = [
     cards: [
       {
         id: "Card1",
-        title: "Card1",
+        title: "Pesquisa de Mercado",
         description:
           "Criar um protótipo funcional e detalhado da nova funcionalidade inovadora do produto para uma apresentação impactante...",
         responsibles: [
@@ -24,10 +24,11 @@ export const columnData: ColumnType[] = [
             value: "1",
           },
         ],
+        deadline: "2024-07-24",
       },
       {
         id: "Card2",
-        title: "Card2",
+        title: "Pesquisa de Marketing",
         description:
           "Criar um protótipo funcional e detalhado da nova funcionalidade inovadora do produto para uma apresentação impactante...",
         responsibles: [
@@ -36,38 +37,14 @@ export const columnData: ColumnType[] = [
             value: "3",
           },
         ],
+        deadline: "2024-07-24",
       },
     ],
   },
   {
     id: "2",
     title: "A Fazer",
-    cards: [
-      {
-        id: "Card3",
-        title: "Card3",
-        description:
-          "Criar um protótipo funcional e detalhado da nova funcionalidade inovadora do produto para uma apresentação impactante...",
-        responsibles: [
-          {
-            label: "Larry",
-            value: "3",
-          },
-        ],
-      },
-      {
-        id: "Card4",
-        title: "Card4",
-        description:
-          "Criar um protótipo funcional e detalhado da nova funcionalidade inovadora do produto para uma apresentação impactante...",
-        responsibles: [
-          {
-            label: "Larry",
-            value: "3",
-          },
-        ],
-      },
-    ],
+    cards: [],
   },
   {
     id: "3",

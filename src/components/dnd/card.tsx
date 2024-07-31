@@ -1,10 +1,14 @@
+import { formatDate } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
+import { checkDateStatus } from "@/lib/utils-for-components";
+import { CheckIcon } from "@/assets/check";
 
 export type CardType = {
   id: string;
   title: string;
   description: string;
   responsibles: Array<{ label: string; value: string }>;
+  deadline: string;
   columnId?: string;
 };
 
@@ -14,6 +18,7 @@ export function Card({
   description,
   responsibles,
   columnId,
+  deadline,
 }: CardType) {
   const { attributes, listeners, setNodeRef, transform } = useSortable({
     id: id,
@@ -31,21 +36,20 @@ export function Card({
       style={style}
       {...listeners}
       {...attributes}
-      className={`bg-card w-full p-4 flex flex-col rounded-3xl gap-2 ${
+      className={`relative bg-card w-full p-4 flex flex-col rounded-3xl gap-2 ${
         columnId === "4" && "border border-green-500"
       }`}
     >
+      {columnId === "4" && <CheckIcon />}
       <h4 className="text-sm font-semibold">{title}</h4>
       <span className="leading-none font-normal text-[10px] w-fit text-[#747F93]">
         {description}
       </span>
       <div className="border-dashed border border-sky-500 p-2 w-full flex items-center justify-between rounded-3xl mb-4">
         <span className="font-normal text-[10px] text-secondary">
-          Data Limite: 26/07
+          Data Limite: {formatDate(deadline)}
         </span>
-        <span className="font-semibold text-[10px] text-[#63B150]">
-          Faltam 10 dias
-        </span>
+        {checkDateStatus(deadline, columnId)}
       </div>
       <div className="flex items-center justify-start w-full gap-2">
         {responsibles.map((responsible) => (

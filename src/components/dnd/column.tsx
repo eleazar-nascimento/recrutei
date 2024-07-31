@@ -31,6 +31,7 @@ export function Column({ id, title, cards }: ColumnType) {
               description={card.description}
               title={card?.title}
               responsibles={card.responsibles}
+              deadline={card.deadline}
             />
           ))
         ) : (
