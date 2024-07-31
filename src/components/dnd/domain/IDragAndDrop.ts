@@ -11,7 +11,11 @@ export interface IDragAndDrop {
     getColumns: () => Promise<ColumnType[]>,
     resources: IChangeTaskResources
   ) => Promise<void>;
-  // findColumn: (unique: string | null) => ColumnType | null
+
+  findColumn: (
+    columns: ColumnType[],
+    unique: string | null
+  ) => ColumnType | null;
   // handleDragOver: (event: DragOverEvent) => null | undefined
   // handleDragEnd: (event: DragEndEvent) => null | undefined
 }
