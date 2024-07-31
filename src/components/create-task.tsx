@@ -46,7 +46,7 @@ export function CreateTask({ children }: CreateTaskProps) {
     try {
       updateLoading(true);
       setOpen(false);
-      await addTask({ ...data, id: uuidv4() });
+      await addTask({ ...data, id: uuidv4(), status: "backlog" });
     } catch (error) {
       console.error(error);
     } finally {

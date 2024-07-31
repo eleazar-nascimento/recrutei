@@ -10,12 +10,23 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Column, ColumnType } from "./column";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useStoreTasks } from "@/store/task";
+import { getTasks } from "@/services/tasks";
 
 export function DndComponent() {
   const tasks = useStoreTasks((state) => state.columns);
   const [columns, setColumns] = useState<ColumnType[]>(tasks);
+
+  const changeTasks = useCallback(async () => {
+    const apiColumns = await getTasks();
+
+    setColumns(apiColumns);
+  }, []);
+
+  useEffect(() => {
+    changeTasks();
+  }, [changeTasks]);
 
   const findColumn = (unique: string | null) => {
     if (!unique) {
@@ -52,12 +63,14 @@ export function DndComponent() {
       const overItems = overColumn.cards;
       const activeIndex = activeItems.findIndex((i) => i?.id === activeId);
       const overIndex = overItems.findIndex((i) => i?.id === overId);
+
       const newIndex = () => {
         const putOnBelowLastItem =
           overIndex === overItems.length - 1 && delta.y > 0;
         const modifier = putOnBelowLastItem ? 1 : 0;
         return overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
       };
+
       return prevState.map((c) => {
         if (c.id === activeColumn.id) {
           c.cards = activeItems.filter((i) => i?.id !== activeId);
@@ -117,12 +130,13 @@ export function DndComponent() {
     >
       <div className="container w-full overflow-x-auto relative">
         <div className="grid grid-cols-4 gap-4 min-w-max min-h-[20rem] pb-8">
-          {columns.map((column) => (
+          {columns?.map((column) => (
             <Column
-              key={column.id}
-              id={column.id}
-              title={column.title}
-              cards={column.cards}
+              key={column?.id}
+              id={column?.id}
+              title={column?.title}
+              cards={column?.cards}
+              status={column?.status}
             />
           ))}
         </div>

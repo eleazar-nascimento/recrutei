@@ -17,7 +17,7 @@ export function checkDateStatus(
     differenceInMilliseconds / (1000 * 60 * 60 * 24)
   );
 
-  if (doneTask === "4") {
+  if (doneTask === "done") {
     if (differenceInDays > 0) {
       return (
         <span className="font-semibold text-[10px] text-[#63B150]">

@@ -14,6 +14,7 @@ export type CardType = {
   responsibles: Array<{ label: string; value: string }>;
   deadline: string;
   columnId?: string;
+  status?: string;
 };
 
 export function Card({
@@ -35,7 +36,6 @@ export function Card({
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
       }
     : undefined;
-
   return (
     <div
       ref={setNodeRef}
@@ -43,13 +43,14 @@ export function Card({
       {...listeners}
       {...attributes}
       className={`relative bg-card w-full p-4 flex flex-col rounded-3xl gap-2 ${
-        columnId === "4" && "border border-green-500"
+        columnId === "done" && "border border-green-500"
       }`}
     >
-      {columnId === "4" && <CheckIcon />}
+      {columnId === "done" && <CheckIcon />}
       <div className="flex items-center justify-between">
         <h4 className="text-sm font-semibold">{title}</h4>
         <CardView
+          key={id}
           id={id}
           open={open}
           title={title}

@@ -8,6 +8,7 @@ export type ColumnType = {
   id: string;
   title: string;
   cards: CardType[];
+  status: string;
 };
 
 export function Column({ id, title, cards }: ColumnType) {
@@ -26,19 +27,20 @@ export function Column({ id, title, cards }: ColumnType) {
         <div className="flex flex-col gap-2 px-4 pb-7">
           <div className="font-semibold text-[#2E2E2E] text-lg">{title}</div>
           <div className="font-normal text-sm text-[#747F93]">
-            {cards.length} tarefa
+            {cards?.length} tarefa
           </div>
         </div>
         {!loading
-          ? cards.map((card) => (
+          ? cards?.map((card) => (
               <Card
                 key={card?.id}
                 id={card?.id}
                 columnId={id}
-                description={card.description}
+                description={card?.description}
                 title={card?.title}
-                responsibles={card.responsibles}
-                deadline={card.deadline}
+                responsibles={card?.responsibles}
+                deadline={card?.deadline}
+                status={card.status}
               />
             ))
           : returnSkeleton()}
