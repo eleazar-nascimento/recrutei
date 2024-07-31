@@ -16,7 +16,7 @@ export function TooltipCustom({ children }: TooltipCustomProps) {
       <Tooltip>
         <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent>
-          <p>Visulizar</p>
+          <p>Visualizar</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
