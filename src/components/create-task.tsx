@@ -45,11 +45,11 @@ export function CreateTask({ children }: CreateTaskProps) {
   async function onSubmit(data: z.infer<typeof createTaskFormSchema>) {
     try {
       updateLoading(true);
+      setOpen(false);
       await addTask({ ...data, id: uuidv4() });
     } catch (error) {
       console.error(error);
     } finally {
-      setOpen(false);
       form.reset();
       updateLoading(false);
     }

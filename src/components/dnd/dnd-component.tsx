@@ -115,15 +115,17 @@ export function DndComponent() {
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
     >
-      <div className="grid grid-cols-4 gap-4 container w-full">
-        {columns.map((column) => (
-          <Column
-            key={column.id}
-            id={column.id}
-            title={column.title}
-            cards={column.cards}
-          />
-        ))}
+      <div className="container w-full overflow-x-auto relative">
+        <div className="grid grid-cols-4 gap-4 min-w-max min-h-[20rem] pb-8">
+          {columns.map((column) => (
+            <Column
+              key={column.id}
+              id={column.id}
+              title={column.title}
+              cards={column.cards}
+            />
+          ))}
+        </div>
       </div>
     </DndContext>
   );
