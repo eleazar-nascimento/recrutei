@@ -1,3 +1,4 @@
+import React from "react";
 import Select, { ActionMeta, MultiValue } from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -42,18 +43,29 @@ const customStyles = {
 };
 
 export function MultiSelect({ options, onChange, defaultValue }: MultiSelect) {
+  const [selectedOptions, setSelectedOptions] = React.useState<MultiValue<any>>(
+    []
+  );
+
   const animatedComponents = makeAnimated();
 
   return (
     <div className="space-y-2">
       <Select
         id="multi-select"
+        value={selectedOptions}
+        onChange={(e) => {
+          setSelectedOptions(e);
+          onChange(e);
+        }}
         closeMenuOnSelect={false}
         components={animatedComponents}
         isMulti
         options={options}
+        placeholder="Selecione um responsável"
+        isOptionDisabled={() => selectedOptions.length >= 3}
+        noOptionsMessage={() => "Sem mais opções."}
         styles={customStyles}
-        onChange={onChange}
         defaultValue={defaultValue}
       />
     </div>
