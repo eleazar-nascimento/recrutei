@@ -1,9 +1,11 @@
 // import { DragEndEvent, DragOverEvent } from "@dnd-kit/core"
 // import { ColumnType } from "../column"
 
+import { DragOverEvent } from "@dnd-kit/core";
 import { CardType } from "../card";
 import { ColumnType } from "../column";
 import { IChangeTaskResources } from "./resources/IChangeTaskResources";
+import { IHandleDragOverResources } from "./resources/IHandleDragOverResources";
 
 export interface IDragAndDrop {
   changeTask: (
@@ -16,6 +18,11 @@ export interface IDragAndDrop {
     columns: ColumnType[],
     unique: string | null
   ) => ColumnType | null;
-  // handleDragOver: (event: DragOverEvent) => null | undefined
+
+  handleDragOver: (
+    findColumn: (unique: string | null) => ColumnType | null,
+    event: DragOverEvent,
+    resources: IHandleDragOverResources
+  ) => null | undefined;
   // handleDragEnd: (event: DragEndEvent) => null | undefined
 }
