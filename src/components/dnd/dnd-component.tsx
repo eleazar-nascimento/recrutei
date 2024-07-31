@@ -10,8 +10,9 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { Column, ColumnType } from "./column";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useStoreTasks } from "@/store/task";
+import { DragAndDrop } from "./data/DragAndDrop";
 
 export function DndComponent() {
   const tasks = useStoreTasks((state) => state.columns);
@@ -20,28 +21,11 @@ export function DndComponent() {
 
   const [columns, setColumns] = useState<ColumnType[]>(tasks);
 
+  const dragAndDrop = useMemo(() => new DragAndDrop(), []);
+
   const changeTasks = useCallback(async () => {
-    try {
-      if (newTask) {
-        setColumns((prevColumns) => {
-          const updatedColumns = [...prevColumns];
-
-          updatedColumns[0] = {
-            ...updatedColumns[0],
-            cards: [newTask, ...updatedColumns[0].cards],
-          };
-
-          return updatedColumns;
-        });
-      } else {
-        const dataColumns = await getColumns();
-
-        setColumns(dataColumns);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [getColumns, newTask]);
+    dragAndDrop.changeTask(newTask, getColumns, { setColumns });
+  }, [dragAndDrop, getColumns, newTask]);
 
   useEffect(() => {
     changeTasks();
