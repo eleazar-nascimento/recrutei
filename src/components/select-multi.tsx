@@ -14,7 +14,7 @@ interface MultiSelect {
 }
 
 const customStyles = {
-  control: (base) => ({
+  control: (base: any) => ({
     ...base,
     borderColor: "#D1D5DB", // border-gray-300
     boxShadow: "none",
@@ -24,15 +24,15 @@ const customStyles = {
     padding: "0.2.5rem", // padding ajustado
     borderRadius: "1.5rem",
   }),
-  multiValue: (base) => ({
+  multiValue: (base: any) => ({
     ...base,
     backgroundColor: "#E5E7EB", // bg-gray-200
   }),
-  multiValueLabel: (base) => ({
+  multiValueLabel: (base: any) => ({
     ...base,
     color: "#111827", // text-gray-900
   }),
-  multiValueRemove: (base) => ({
+  multiValueRemove: (base: any) => ({
     ...base,
     color: "#6B7280", // text-gray-500
     "&:hover": {
@@ -54,9 +54,9 @@ export function MultiSelect({ options, onChange, defaultValue }: MultiSelect) {
       <Select
         id="multi-select"
         value={selectedOptions}
-        onChange={(e) => {
+        onChange={(e: MultiValue<any>, actionMeta: ActionMeta<any>) => {
           setSelectedOptions(e);
-          onChange(e);
+          onChange && onChange(e, actionMeta);
         }}
         closeMenuOnSelect={false}
         components={animatedComponents}
