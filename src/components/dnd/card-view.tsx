@@ -28,7 +28,7 @@ export function CardView({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-card">
+      <DialogContent className="bg-card font-roboto">
         <div className="flex items-center justify-between">
           <DialogTitle>{title}</DialogTitle>
           <div className="flex items-center gap-3">

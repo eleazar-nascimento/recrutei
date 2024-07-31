@@ -58,7 +58,7 @@ export function CreateTask({ children }: CreateTaskProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-card">
+      <DialogContent className="bg-card font-roboto">
         <div className="flex flex-col gap-1">
           <DialogTitle className="text-foreground font-semibold text-lg">
             Adicionar tarefa
@@ -75,12 +75,12 @@ export function CreateTask({ children }: CreateTaskProps) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-800 opacity-70">
+                  <FormLabel className="text-[#747F93] text-xs font-bold">
                     Título da tarefa
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="rounded-full border-2 border-slate-300"
+                      className="rounded-full border-2 border-slate-300 bg-white"
                       placeholder="Informe o título"
                       {...field}
                     />
@@ -96,12 +96,12 @@ export function CreateTask({ children }: CreateTaskProps) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-800 opacity-70">
+                  <FormLabel className="text-[#747F93] text-xs font-bold">
                     Descrição da tarefa
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      className="rounded-3xl border-2 border-slate-300"
+                      className="rounded-3xl border-2 border-slate-300 bg-white"
                       placeholder="Informe a descrição"
                       {...field}
                     />
@@ -117,7 +117,7 @@ export function CreateTask({ children }: CreateTaskProps) {
               name="responsibles"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-800 opacity-70">
+                  <FormLabel className="text-[#747F93] text-xs font-bold">
                     Responsáveis
                   </FormLabel>
                   <FormControl>
@@ -142,13 +142,13 @@ export function CreateTask({ children }: CreateTaskProps) {
               name="deadline"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-zinc-800 opacity-70">
+                  <FormLabel className="text-[#747F93] text-xs font-bold">
                     Data limite
                   </FormLabel>
                   <FormControl>
                     <Input
                       type="date"
-                      className="rounded-full border-2 border-slate-300"
+                      className="rounded-full border-2 border-slate-300 bg-white w-fit"
                       placeholder="Informe a data limite"
                       {...field}
                     />
